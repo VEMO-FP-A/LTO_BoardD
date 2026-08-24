@@ -848,7 +848,7 @@ footer.foot{margin-top:32px;padding-top:16px;border-top:1px solid var(--b);font-
   <div class="vemo-section-title">Net Income <b>vs Budget</b> Bridge</div>
   <div class="chart-card" style="margin-bottom:22px">
     <div class="chart-hd">
-      <span class="t">Net Income Budget → Net Income Actual · <span id="ebridge-period"></span> · <span id="ebridge-variance"></span></span>
+      <span class="t">Net Income Budget → Net Income Actual · <span id="ebridge-period"></span></span>
       <div class="chart-toggles">
         <div class="tgl-group" id="ebridge-mode-group">
           <button type="button" class="tgl-btn active" data-mode="cur">Current month</button>
@@ -877,7 +877,7 @@ footer.foot{margin-top:32px;padding-top:16px;border-top:1px solid var(--b);font-
 
 <footer class="foot">
   <div>VEMO · LTO (VEMO Impulso) · Strictly Private &amp; Confidential</div>
-  <div>build 2026-08-24 16:10</div>
+  <div>build 2026-08-24 23:29</div>
 </footer>
 
 <script>
@@ -3796,13 +3796,9 @@ function renderEbitdaBridge(){
   const pl = isYTD ? ('YTD ' + mlblShort(YTD_START) + ' → ' + mlblShort(CUR)) : mlblShort(CUR);
   const periodEl = document.getElementById('ebridge-period');
   if(periodEl) periodEl.textContent = pl;
-  const varEl = document.getElementById('ebridge-variance');
-  if(varEl){
-    const sign = netVarianceTotal >= 0 ? '+' : '−';
-    varEl.textContent = 'Total variance: ' + sign + fmtMm(Math.abs(netVarianceTotal)) + 'M';
-    varEl.style.color = netVarianceTotal >= 0 ? '#117A45' : '#C0392B';
-    varEl.style.fontWeight = '700';
-  }
+  // "Total variance" (con la cantidad en rojo/verde) removido del header del Bridge a pedido
+  // del usuario -- ya no se muestra ese texto junto al periodo (el bridge en si ya deja ver la
+  // barra final de Net Income Actual vs Budget, asi que el numero no se repite en el titulo).
 }
 
 // renderPLCharts() function body eliminado (Ago 2026) -- ver comentario arriba de donde vivia
