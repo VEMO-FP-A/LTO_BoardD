@@ -864,14 +864,11 @@ footer.foot{margin-top:32px;padding-top:16px;border-top:1px solid var(--b);font-
        ya viven en Operational Metrics -> Financial, cada uno con su fila en la tabla. El tab
        P&L ahora solo muestra el Bridge arriba. -->
 
-  <!-- Vista P&L Summary (simplificado Ago 2026 para el Board Dashboard: solo Managerial View,
-       sin toggle a Accounting View ni a Historical View, a pedido del usuario) -->
-  <div style="background:var(--sf);border:1px solid var(--b);border-radius:var(--r);padding:11px 16px;margin:22px 0 14px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-    <span style="font-family:'Space Grotesk',sans-serif;font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:0.08em;font-weight:700">P&L Summary View ↓</span>
-    <div class="stabs" id="pl-view-toggle" style="margin:0">
-      <button class="active" data-view="managerial">Managerial View</button>
-    </div>
-    <span id="pl-view-caption" style="margin-left:auto;font-size:11px;color:var(--tx3);letter-spacing:0.03em">View: <b>Managerial View</b></span>
+  <!-- P&L Summary View (simplificado para el Board Dashboard): ya NO es un toggle/boton
+       clickeable -- solo existe la vista Managerial (se quito Accounting View e Historical View),
+       asi que se muestra como texto informativo simple, no como una opcion que se pueda cambiar. -->
+  <div style="padding:2px 2px 4px 2px;margin:22px 0 14px 0;font-family:'Space Grotesk',sans-serif;font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:0.08em;font-weight:700">
+    P&L Summary View: <span style="color:var(--forest)">Managerial View</span>
   </div>
 
   <!-- TABLA AL FINAL -->
@@ -880,7 +877,7 @@ footer.foot{margin-top:32px;padding-top:16px;border-top:1px solid var(--b);font-
 
 <footer class="foot">
   <div>VEMO · LTO (VEMO Impulso) · Strictly Private &amp; Confidential</div>
-  <div>build 2026-08-24 15:27</div>
+  <div>build 2026-08-24 22:06</div>
 </footer>
 
 <script>
@@ -6871,6 +6868,17 @@ function setupChat(){
         try { renderPLVemo('pl-vemo-detail',{simple:false,title:'LTO – <b>P&L Summary</b>'}); } catch(e){ console.warn(e); }
       });
     }
+    // FIX (Ago 2026): el label decia "Historical View" a secas, sin decir que rango cubre --
+    // se reemplaza por el rango real de anios con datos (ej. "2025-2026"), calculado del
+    // arreglo D.months en vez de hardcodearlo, para que se actualice solo si en el futuro se
+    // agrega un anio mas (ej. "2025-2027") sin tener que tocar este texto de nuevo.
+    const lbl = document.getElementById('pl-historic-range-lbl');
+    if(lbl && D.months && D.months.length){
+      const firstY = (D.months[0]||'').split('-')[0];
+      const lastIdx = Math.min(LI, D.months.length-1);
+      const lastY = (D.months[lastIdx]||'').split('-')[0];
+      if(firstY && lastY) lbl.textContent = (firstY===lastY) ? firstY : (firstY+'-'+lastY);
+    }
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', bind);
   else setTimeout(bind, 50);
@@ -6958,9 +6966,9 @@ function init(){
   try { renderPLVemo('pl-vemo-detail',{simple:false,title:'LTO – <b>P&L Summary</b>'}); } catch(e){ console.warn('renderPLVemo detail',e); }
   try { renderPLBridge(); } catch(e){ console.warn('renderPLBridge',e); }
   try { renderEbitdaBridge(); } catch(e){ console.warn('renderEbitdaBridge',e); }
-  // Board Dashboard simplificado (Ago 2026): tab "Variation" removido a pedido del usuario ->
-  // ya no se llama a setupVarFilters()/renderVariation() (sus elementos #vf-* ya no existen en
-  // el HTML). Las funciones quedan definidas mas abajo (sin uso) por si se necesitan de nuevo.
+  // Board Dashboard simplificado: tab "Variation" removido a pedido del usuario -> ya no se
+  // llama a setupVarFilters()/renderVariation() (sus elementos #vf-* ya no existen en el HTML).
+  // Las funciones quedan definidas mas abajo (sin uso) por si se necesitan de nuevo.
   try {
     const dt = document.getElementById('dark-toggle');
     if(dt){
