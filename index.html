@@ -880,7 +880,7 @@ footer.foot{margin-top:32px;padding-top:16px;border-top:1px solid var(--b);font-
 
 <footer class="foot">
   <div>VEMO · LTO (VEMO Impulso) · Strictly Private &amp; Confidential</div>
-  <div>build 2026-08-24 15:17</div>
+  <div>build 2026-08-24 21:22</div>
 </footer>
 
 <script>
@@ -1921,19 +1921,7 @@ const RATIOS = {
     {l:'SG&amp;A',                      keys:['total_sga'],                   unit:'MXNm', type:'num', agg:'sum', fmt:'mm'},
     {l:'EBT',                           keys:['ebt'],                         unit:'MXNm', type:'num', agg:'sum', fmt:'mm'},
     {l:'Net Income',                    keys:['net_income_non_op'],           unit:'MXNm', type:'num', agg:'sum', fmt:'mm'},
-    {l:'Nominal Interest Rate YTD (Gross)', keys:['nominal_interest_rate_ytd'],   unit:'%',  type:'pct', agg:'avg'},
-    {l:'Asset Yield YTD',               keys:['asset_yield_ytd'],             unit:'%',  type:'pct', agg:'avg'},
-    {l:'LLR Adjustment (YTD)',  keys:['llr_adjustment'],              unit:'%',  type:'pct', agg:'avg', better:'down',
-      note:'Monthly LLR &amp; RPSD losses / average Gross Portfolio (Risk), annualized (x12). Shown as a positive value (loss rate) — sign flipped per explicit request; Adjusted Asset Yield below internally uses the original sign (negative), which is why it is not the direct sum of these two rows.'},
     {l:'LLR &amp; RPSD',  keys:['loss_llr_rpsd'],               unit:'MXNm', type:'num', agg:'sum', fmt:'mm'},
-    {l:'Adjusted Asset Yield',          keys:['adjusted_yield'],              unit:'%',  type:'pct', agg:'avg',
-      note:'= Asset Yield YTD minus the annualized LLR&amp;RPSD loss (Delta LLR with its original sign) — the portfolio yield net of credit losses.'},
-    {l:'ROE % (Board)',                 keys:['roe_pct_board'],               unit:'%',  type:'pct', agg:'avg', showYtd:true,
-      note:'Annualized: (Net Income minus PTU) for the month / average Shareholders\' Equity, x12. The summary shows the Monthly value and the YTD average separately.'},
-    {l:'Interest Income per Active Unit', keys:['interest_income_per_unit'],  unit:'MXN$', type:'num', agg:'avg', fmt:'n1'},
-    {l:'G&A as % of Revenue',           keys:['ga_pct_income'],               unit:'%',  type:'pct', agg:'avg', better:'down'},
-    {l:'Inventory of New Vehicles (% of Active Units)', keys:['inventory_pct_active_units'], unit:'%',  type:'pct', agg:'avg'},
-    {l:'Inventory Turnover (months)',   keys:['inventory_turnover_months'],   unit:'x',  type:'num', agg:'avg', fmt:'n2'},
   ],
 };
 
@@ -3121,17 +3109,7 @@ const RATIO_CHARTS = {
     {k:'total_sga', l:'SG&amp;A', agg:'sum', fmt:'k', fullWidth:true},
     {k:'ebt', l:'EBT', agg:'sum', fmt:'k', fullWidth:true},
     {k:'net_income_non_op', l:'Net Income', agg:'sum', fmt:'k', fullWidth:true},
-    {k:'nominal_interest_rate_ytd', l:'Nominal Interest Rate YTD (Gross)', type:'pct', agg:'avg', fullWidth:true},
-    {k:'asset_yield_ytd', l:'Asset Yield YTD', type:'pct', agg:'avg', fullWidth:true},
-    {k:'llr_adjustment', l:'LLR Adjustment (YTD)', type:'pct', agg:'avg', fullWidth:true,
-      note:'How this is calculated: Monthly LLR &amp; RPSD losses ÷ average Gross Portfolio (Risk), annualized (x12). Shown as a positive value (loss rate) — sign flipped from the source data.'},
     {k:'loss_llr_rpsd', l:'LLR &amp; RPSD', agg:'sum', fmt:'k', fullWidth:true},
-    {k:'adjusted_yield', l:'Adjusted Asset Yield', type:'pct', agg:'avg', fullWidth:true},
-    {k:'roe_pct_board', l:'ROE % (Board)', type:'pct', agg:'avg', fullWidth:true},
-    {k:'interest_income_per_unit', l:'Interest Income per Active Unit', fmt:'k', agg:'avg', fullWidth:true},
-    {k:'ga_pct_income', l:'G&amp;A as % of Revenue', type:'pct', agg:'avg', fullWidth:true},
-    {k:'inventory_pct_active_units', l:'Inventory of New Vehicles (% of Active Units)', type:'pct', agg:'avg', fullWidth:true},
-    {k:'inventory_turnover_months', l:'Inventory Turnover (months)', agg:'avg', fullWidth:true},
   ],
 };
 
