@@ -232,6 +232,8 @@ body.dark-mode .tgl-btn.active{background:#fff;color:#1F5454}
 .opmet-hd{background:var(--forest);color:#fff;padding:11px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
 .opmet-hd .t{font-size:14px;font-weight:700;letter-spacing:0.01em}
 .opmet-hd .hint{font-size:10.5px;color:rgba(255,255,255,0.78);letter-spacing:0.03em}
+.opmet-expand-all{background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.38);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:0.02em;padding:6px 14px;border-radius:6px;cursor:pointer;transition:background 0.15s;white-space:nowrap}
+.opmet-expand-all:hover{background:rgba(255,255,255,0.26)}
 .opmet-row{border-bottom:1px solid var(--b);transition:background 0.12s;background:#fff}
 .opmet-row:last-child{border-bottom:none}
 .opmet-row .hd{display:flex;align-items:center;gap:14px;padding:13px 18px;cursor:pointer;user-select:none}
@@ -819,7 +821,7 @@ footer.foot{margin-top:32px;padding-top:16px;border-top:1px solid var(--b);font-
 
 <footer class="foot">
   <div>VEMO · LTO (VEMO Impulso) · Strictly Private &amp; Confidential</div>
-  <div>build 2026-08-25 11:40</div>
+  <div>build 2026-08-25 17:57</div>
 </footer>
 
 <script>
@@ -1898,8 +1900,7 @@ function renderRatioExpandable(targetId, list, sectionTitle){
   const tgt=document.getElementById(targetId); if(!tgt) return;
   const RS = rangeStart(), RE = rangeEnd();
   let html = sectionTitle ? ('<div class="vemo-section-title">'+sectionTitle+'</div>') : '';
-  const hint = mlblShort(RS)+' → '+mlblShort(RE)+' · '+(KPI_RANGE==='ytd'?'YTD '+CURY:'Full history')+' · click section to expand';
-  html += '<div class="opmet-wrap"><div class="opmet-hd"><span class="t">Operational Metrics Table</span><span class="hint">'+hint+'</span></div>';
+  html += '<div class="opmet-wrap"><div class="opmet-hd"><span class="t">Operational Metrics Table</span><button type="button" class="opmet-expand-all">Expand all</button></div>';
   list.forEach((ki, idx)=>{
     let A = [], B = [];
     if(ki.computed && ki.numer && ki.denom){
@@ -2043,6 +2044,15 @@ function renderRatioExpandable(targetId, list, sectionTitle){
   tgt.querySelectorAll('.opmet-row .hd').forEach(hd=>{
     hd.addEventListener('click',()=>hd.parentElement.classList.toggle('open'));
   });
+  tgt.querySelectorAll('.opmet-expand-all').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const wrap = btn.closest('.opmet-wrap');
+      const rows = wrap.querySelectorAll('.opmet-row');
+      const allOpen = rows.length>0 && Array.from(rows).every(r=>r.classList.contains('open'));
+      rows.forEach(r=>r.classList.toggle('open', !allOpen));
+      btn.textContent = allOpen ? 'Expand all' : 'Collapse all';
+    });
+  });
 }
 
 // FORMATO 'grouped': un solo concepto (ej. Gross Portfolio) con su desglose Technology/Platform/City
@@ -2051,8 +2061,7 @@ function renderGroupedExpandable(targetId, groups, sectionTitle){
   const tgt=document.getElementById(targetId); if(!tgt) return;
   const RS = rangeStart(), RE = rangeEnd();
   let html = sectionTitle ? ('<div class="vemo-section-title">'+sectionTitle+'</div>') : '';
-  const hint = mlblShort(RS)+' → '+mlblShort(RE)+' · '+(KPI_RANGE==='ytd'?'YTD '+CURY:'Full history')+' · click section to expand';
-  html += '<div class="opmet-wrap"><div class="opmet-hd"><span class="t">Operational Metrics Table</span><span class="hint">'+hint+'</span></div>';
+  html += '<div class="opmet-wrap"><div class="opmet-hd"><span class="t">Operational Metrics Table</span><button type="button" class="opmet-expand-all">Expand all</button></div>';
 
   function getV(arrIn, i, ki){
     if(ki.agg==='eop') return eop(arrIn, i);
@@ -2181,6 +2190,15 @@ function renderGroupedExpandable(targetId, groups, sectionTitle){
   tgt.insertAdjacentHTML('beforeend', html);
   tgt.querySelectorAll('.opmet-row .hd').forEach(hd=>{
     hd.addEventListener('click',()=>hd.parentElement.classList.toggle('open'));
+  });
+  tgt.querySelectorAll('.opmet-expand-all').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const wrap = btn.closest('.opmet-wrap');
+      const rows = wrap.querySelectorAll('.opmet-row');
+      const allOpen = rows.length>0 && Array.from(rows).every(r=>r.classList.contains('open'));
+      rows.forEach(r=>r.classList.toggle('open', !allOpen));
+      btn.textContent = allOpen ? 'Expand all' : 'Collapse all';
+    });
   });
 }
 
