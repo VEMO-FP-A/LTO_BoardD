@@ -821,7 +821,7 @@ footer.foot{margin-top:32px;padding-top:16px;border-top:1px solid var(--b);font-
 
 <footer class="foot">
   <div>VEMO · LTO (VEMO Impulso) · Strictly Private &amp; Confidential</div>
-  <div>build 2026-08-25 14:31</div>
+  <div>build 2026-08-25 16:50</div>
 </footer>
 
 <script>
@@ -2277,6 +2277,16 @@ function renderHierTable(targetId, hierDef, opts){
       if(arr[i]!=null && arr[i]!==0){ firstDataIdx = Math.min(firstDataIdx, i); break; }
     }
   }));
+  // minStartMonth: piso fijo de arranque ("YYYY-MM"), a pedido del usuario -- ej. Gross
+  // Portfolio/Active Fleet debe mostrarse SIEMPRE desde Dic-25 a la fecha, sin importar que
+  // haya datos reales desde antes (Ene-25 en adelante). A diferencia de recentMonths (ventana
+  // movil de N meses hacia atras desde el mes actual), este piso es un mes de CALENDARIO fijo:
+  // el borde izquierdo no se recorre conforme avanzan los meses, solo el derecho (CUR_M) sigue
+  // creciendo mes a mes ("a la fecha").
+  if(opts.minStartMonth){
+    const _msIdx = D.months.indexOf(opts.minStartMonth);
+    if(_msIdx >= 0) firstDataIdx = Math.max(firstDataIdx, _msIdx);
+  }
 
   const rangeKey = opts.rangeToggle ? (opts.rangeKey || targetId) : null;
   if(rangeKey && !(rangeKey in HIER_RANGE_MODE)) HIER_RANGE_MODE[rangeKey] = 'full';
@@ -3097,7 +3107,10 @@ function renderAllRatios(){
     const tgt = document.getElementById('rat-portfolio-groups');
     if(tgt){
       tgt.innerHTML = '<div class="vemo-section-title">LTO – <b>Main Portfolio Metrics</b></div>';
-      renderHierTable('rat-portfolio-groups', HIER_portfolio, {showYTD:true});
+      // minStartMonth (Ago 2026, a pedido del usuario): esta tabla (Gross Portfolio / Active
+      // Fleet breakdown por Technology/Platform/City) debe arrancar en Dic-25, no en Ene-25 --
+      // los meses de 2025 anteriores a Dic no deben mostrarse aunque haya dato real ahi.
+      renderHierTable('rat-portfolio-groups', HIER_portfolio, {showYTD:true, minStartMonth:'2025-12'});
       renderHierTable('rat-portfolio-groups', HIER_portfolio_dpd, {showYTD:true, rangeToggle:true, rangeKey:'dpd', recentMonths:8, noBudget:true});
     }
   }
