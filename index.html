@@ -821,7 +821,7 @@ footer.foot{margin-top:32px;padding-top:16px;border-top:1px solid var(--b);font-
 
 <footer class="foot">
   <div>VEMO · LTO (VEMO Impulso) · Strictly Private &amp; Confidential</div>
-  <div>build 2026-08-25 17:41</div>
+  <div>build 2026-08-25 17:57</div>
 </footer>
 
 <script>
@@ -2501,8 +2501,6 @@ const HIER_performance = [
 function renderRatioCharts(containerId, chartDefs){
   const root = document.getElementById(containerId);
   if(!root || !chartDefs.length) return;
-  root.insertAdjacentHTML('beforeend',
-    '<div style="font-size:10.5px;color:var(--tx3);font-style:italic;margin:0 2px 8px 2px">Run-Rate = avg. monthly increase, extrapolated forward</div>');
   let html='<div class="charts-grid">';
   chartDefs.forEach((cd,i)=>{
     // Combined chart (multiple lines in one)
