@@ -23,8 +23,78 @@
     ]
   },
   "Jul-26": {
-    "highlights": [],
-    "lowlights": []
+    "highlights": [
+      {
+        "title": "Risk",
+        "body": "Following the implementation of the new risk policy for the Uber population (~80% of originations) and closer coordination between Risk and Collections, roll rates have shown a sustained improvement over the weeks following July 13. The roll rate from Current to the 1-14 days past due (DPD) buckets declined from 13% to 5%, while the roll rate from 15-29 DPD bucket to 30-69 DPD bucket decreased from 40% to 15%. While month-end bucket composition still reflects legacy and pre-policy portfolio behavior, these most recent roll-rate trends reinforce the focus on early-bucket containment as a key driver of portfolio performance.<ul style=\"margin:6px 0 0 16px;padding:0\"><li><b>Legacy Portfolio Clean-Up:</b> A portfolio clean-up process is underway, focused on reviewing delinquent accounts and 30+ days buckets to adopt a more aggressive repossession approach for legacy accounts under these conditions. Results from this exercise are expected to inform the development of a formal Risk-led repossession policy going forward.</li></ul>"
+      },
+      {
+        "title": "Strategic Developments",
+        "body": "<ul style=\"margin:2px 0 0 16px;padding:0\"><li style=\"margin-bottom:6px\">We continued the implementation of Mambu, our new portfolio/lease management system. The solution is expected to eliminate manual processes, facilitate integration with our tech stack and give the company stronger control at scale; expected to be fully operational by end of Q3.</li><li><b>Uber Agreement:</b> We reached the threshold of 3.50% (previously at 3.25%) of revenue share from Uber during the month, resulting in a MoM increase of ca. MXN$250k.</li></ul>"
+      },
+      {
+        "title": "Lead Generation & Conversion",
+        "body": "14.9k new client applications (+34.2% MoM), of which 13.7k were new client applications and 1.2k were re-engagements of applications, overperforming +48.0% in our daily average (444.2/day vs. 300 objective)."
+      },
+      {
+        "title": "Branding",
+        "body": "Branded 135 vehicles during the month (124 Uber, 11 DiDi), bringing the total branded fleet for Uber to 861 and 102 for DiDi vehicles. This implies up to MXN$1,200 and MXN$2,000 higher monthly income for our Uber and DiDi clients, respectively. Of note, this benefit will be removed from mid-August onwards as part of a shift in Uber's global ad strategy."
+      },
+      {
+        "title": "Collections",
+        "body": "Closed at 92.9% (88.1% without additional payments, +140 bps MoM), with Uber collections at 98.6% (+240 bps MoM) and DiDi collections at 90.7% (+100bps MoM). Improvement in collections was primarily driven by the recovery of retention tools across both Uber and DiDi, further supported by the ongoing reconciliation initiative related to the Uber retention tool."
+      },
+      {
+        "title": "Tech Tools",
+        "body": "July was Daniel's highest-volume month to date: 13,777 leads processed (+39.3% MoM). System-level Foundry errors reported in June were fully resolved.<ul style=\"margin:6px 0 0 16px;padding:0\"><li>Mid-conversation abandonment increased to 47.4% vs 27.7% driven by a separate Azure AI Foundry issue affecting qualified leads — a manual CRM-based mitigation was implemented while full quantification is expected in August. Automated recovery and reactivation remained fully operational, sending 22,900+ messages with a 69% response rate. Outbound delivery gaps and no-response leads increased broadly in line with overall lead volume (+37.3% and +38.0% MoM, respectively), indicating that the increase was primarily driven by scale rather than a deterioration in underlying performance.</li></ul>"
+      },
+      {
+        "title": "VEMO Impulso App",
+        "body": "July closed with 3,950 active users (+9.7% MoM) out of 2,900 who are clients from our active client base (80% of portfolio coverage). Weekly active users reached 2,280 (+70 users MoM). During July we added 350 new users. Of note, through Impulso App's integration with Uber and DiDi, we connected 2,153 active clients (out of which, 1,840 are Uber clients and 313 are DiDi clients) to the platform's APIs."
+      }
+    ],
+    "lowlights": [
+      {
+        "title": "Origination",
+        "body": "Signed 174 new vehicle leases (-44.4% MoM; -59.8% vs. Budget) and 37 used vehicle leases (+8.8% MoM; -26.0% vs. Target), out of which 163 were EVs (93.7% of total new leases), leading to a net portfolio of MXN $1,126.5m (-0.7% MoM; -30.5% vs. Budget). Originated 127 new leases in Uber (73.0% of total) and 47 new leases in DiDi (27.0% of total). During July, 161 Uber EVs completed their first trip (including originations from previous months), 20.4% of Q3 target and 41.1% of the '26 target."
+      },
+      {
+        "title": "DAE-LTO Program",
+        "body": "Transitioned 43 DAE drivers (14% below target). We are analyzing the performance of this cohort given the higher risk profile observed in recent DAE transitions. At a high level, the past few months of DAE transitions appear to have been less successful in LTO than prior cohorts. A new risk model specially designed for DAE drivers is in development and is expected to be ready by the end of August."
+      },
+      {
+        "title": "Portfolio",
+        "body": "Past due portfolio (+90 days) represented 4.8% (-10 bps MoM) of the total portfolio. Our LLR has an outstanding balance of MXN $52.2m, which represents 4.4% of the total portfolio and a ca. 0.92x coverage of our past due portfolio. Even though the LLR is dictated by our current policy (determined by an external risk assessment provider and approved by auditors), it is under review by our newly formed risk team to reflect the current portfolio behavior with a mid-year review instead of waiting for the usual yearly review."
+      },
+      {
+        "title": "Active Fleet",
+        "body": "Reached 3,599 vehicles (-0.5% MoM; -21.9% vs. Budget) out of which 2,121 are active EVs (58.9% of active fleet, +3.7% MoM), with 1,661 corresponding to Uber (78.3%; 586 light and 1,075 Premium) and 460 to DiDi (21.7%, 213 light and 247 Premium)."
+      },
+      {
+        "title": "Repossessions",
+        "body": "We completed 143 effective repossessions during the period (+17 units MoM), reflecting recoveries across multiple cohorts and operational stages. Closed the month with 59 vehicles pending repossession, including carryover from prior periods."
+      },
+      {
+        "title": "Used Vehicle Inventory",
+        "body": "Increased to 780 units (17.8% of fleet, +66 units MoM), comprised of 366 EVs and 414 ICE-HEV. This was mainly driven by: (i) 143 effective repossessions; (ii) 37 used vehicle originations; (iii) 26 DAE leasing; and (iv) 18 vehicles classified as fixed assets."
+      },
+      {
+        "title": "Bucket Composition",
+        "body": "<ul style=\"margin:2px 0 0 16px;padding:0\"><li style=\"margin-bottom:6px\"><b>Legacy Portfolio:</b> The Current bucket remained relatively stable from June to July (from 48.4% to 43.0%), with movement across both early and later stage delinquency buckets. The 1-14 bucket increased 2.2 pp to 23.5%, while the 30-89 days bucket increased 1.8 pp to 11.0%, and the total portfolio's 90+ balance remained broadly stable at MXN$57.8m. The evolution reinforces the current focus on early-bucket containment and legacy portfolio remediation.</li><li><b>AFV (New Product):</b> Originations, which began in May, continue to season as the portfolio matures. The Current bucket declined from 75.0% in June to 67.8% in July, with all delinquency concentrated in the early buckets (1-14 and 15-29 days) and no exposure to 90+. Given the weekly payment structure, the May cohort has already completed 8+ payment cycles and has moved beyond the key early-default window (first 3-4 payments) without material deterioration. June and July cohorts remain within this early performance window and will continue to be closely monitored over the coming weeks.</li></ul>"
+      }
+    ],
+    "pnl_revenue": {
+      "bud": "(MXN <b>-$15.8m</b>): Driven by: (i) lower interest income (<b>-$5.0m</b>) on account of a smaller Portfolio (<b>$1,164m</b> vs <b>$1,689m</b>) and (ii) lower other operating revenue (<b>-$10.8m</b>) driven by lower originations (<b>174</b> vs <b>433</b>) on account of (a) Vehicle Rebates (<b>-$5.4m</b>); (b) Opening Fees (<b>-$1.8m</b>); (c) Customer Discounts (<b>-$1.4m</b>); and (d) Administration Fees (<b>-$1.4m</b>).",
+      "mom": "(MXN <b>+$1.5m</b>): Higher interest income (<b>+$6.5m</b>) from one additional week of accrued interest. This was partially offset by lower other operating revenue on lower originations: rebates (<b>-$5.0m</b>) and Uber/DiDi bonuses (<b>-$0.5m</b>), net of DAE Leasing (<b>+$0.4m</b>)."
+    },
+    "pnl_nor": {
+      "bud": "(MXN <b>-$14.4m</b>): Driven by (i) lower revenues (<b>-$15.8m</b>), partially offset by (ii) lower interest expense (<b>+$1.2m</b>) — Budget assumed a (<b>$100.0m</b>) drawdown under the Promecap facility, and additional monthly debt drawdowns of (<b>$125.0m</b>) starting in July to resume leverage on the LTO; neither has been drawn to date; and (iii) lower LLR &amp; RPSD (<b>+$0.2m</b>).",
+      "mom": "(MXN <b>+$4.3m</b>): Driven by (i) higher revenues (<b>+$1.5m</b>), and (ii) lower LLR &amp; RPSD (<b>+$3.3m</b>). This was partially offset by higher interest expense (<b>-$0.5m</b>)."
+    },
+    "pnl_ni": {
+      "bud": "(MXN <b>-$18.8m</b>): Driven by: (i) lower Net Operating Revenue (<b>-$14.4m</b>), (ii) higher OPEX (<b>-$4.3m</b>) mainly from Secondary Sales loss (ca. <b>$3.0m</b>) provision for the inventory exit strategy; and (iii) higher G&amp;A (<b>-$1.8m</b>) mainly linked to higher repossessed inventory (<b>780</b> vs <b>352</b>) and additional expenses to support business expansion (payroll and software expenses). This was partially offset by (i) lower Corp. &amp; CF SG&amp;A (<b>+$2.1m</b>), and (ii) lower taxes (<b>+$2.1m</b>).",
+      "mom": "(MXN <b>-$5.5m</b>): Driven by a higher Net Operating Revenue (<b>+$4.3m</b>), partially offset by (i) higher OPEX (<b>-$6.0m</b>) on account of (a) loss from secondary sales (<b>-$3.6m</b>), and (b) higher Maintenance (<b>-$2.4m</b>) considering impacts from third-party providers in Tijuana and Guadalajara; (ii) higher SG&amp;A (<b>-$3.7m</b>) as explained above; and (iii) higher taxes (<b>-$0.4m</b>); partially offset by (iv) lower D&amp;A (<b>+$0.3m</b>)."
+    }
   },
   "Jan-25": {
     "highlights": [],
