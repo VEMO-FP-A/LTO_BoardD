@@ -559,5 +559,95 @@
       "bud": "(MXN <b>-$11.2m</b>): Driven by: (i) a lower Net Operating Revenue (<b>-$15.9m</b>), (ii) higher DL G&amp;A (<b>-$1.7m</b>) driven by (a) insurance costs (<b>-$1.0m</b>) and (b) parking (<b>-$0.6m</b>) both linked to higher repossessed inventory (<b>714</b> vs <b>333</b>); and (iii) higher D&amp;A (<b>-$0.9m</b>), due to a larger substitute fleet (<b>153</b> vs <b>107</b>) and D&amp;A from DAE leasing agreement. This was partially offset by lower Corp. &amp; CF SG&amp;A (<b>+$4.0m</b>), (ii) lower taxes (<b>+$2.6m</b>), and (iii) lower OPEX (<b>+$0.6m</b>).",
       "mom": "(MXN <b>+$12.6m</b>): Driven by a higher Net Operating Revenue (<b>+$13.9m</b>), partially offset by (i) higher OPEX on account of loss from secondary sales (<b>-$0.5m</b>), (ii) higher SG&amp;A (<b>-$0.3m</b>), (iii) higher D&amp;A (<b>-$0.2m</b>) and (iv) higher taxes (<b>-$0.2m</b>)."
     }
+  },
+  "Aug-26": {
+    "highlights": [
+      {
+        "title": "Portfolio Quality",
+        "body": "Past-due 90+ fell to <b>MXN$50.2m</b> (<span class='g'>-13.1% MoM</span>), representing <b>4.16%</b> of the gross portfolio (<span class='g'>-77 bps MoM</span>), while the gross portfolio grew to <b>MXN$1,205.9m</b> (<span class='g'>+2.9% MoM</span>; <span class='r'>-3.1% vs. reforecast</span>). LLR closed at MXN$49.2m (-MXN$3.0m; -5.7% MoM), with coverage improving to <b>0.98x</b> from 0.92x in July – effectively reaching the 1.0x target."
+      },
+      {
+        "title": "New Product Portfolio",
+        "body": "Current bucket improved <span class='g'>+5.8 pp</span> to <b>73.6%</b>, while the 1–14 day bucket declined <span class='g'>-6.1 pp</span> to 15.1%."
+      },
+      {
+        "title": "Collections",
+        "body": "Closed at <b>96.9%</b> (<span class='g'>+400 bps MoM</span>), 91.3% without additional payments (<span class='g'>+320 bps</span>), with Uber at 97.2% and DiDi at 95.5% (<span class='g'>+480 bps</span>). Improvement was supported by the ongoing repossession initiative and the automated initial-contact blaster, which doubled the number of clients contacted."
+      },
+      {
+        "title": "Risk – New Origination Policy Delivering",
+        "body": "EVER 7+ at week 5 on books declined to <b>8.3%</b> vs. 18.7–20.3% for pre-policy cohorts. Uber v2 back-testing indicates MOB3 delinquency falling from 7.1% to <span class='g'>6.3%</span> while holding approval rates at ~46.5% – improving risk selection without reducing origination capacity."
+      },
+      {
+        "title": "Risk Framework",
+        "body": "Defined a 3-KPI framework (roll rates → EVER 30+ at MOB3 → cumulative repossession rate by cohort). EVER 30+ at MOB3 shows a <b>+0.90 correlation</b> with 12-month repossession, providing an early read on vintage quality from MOB3; first cohorts with sufficient evidence for extrapolation expected Nov/Dec."
+      },
+      {
+        "title": "Portfolio Clean-Up Execution",
+        "body": "<b>233 effective repossessions</b> (<span class='g'>+90 MoM</span>) on 285 requests (+88 MoM). Cumulatively, the clean-up has generated 452 repossession requests on 21+ DPD leases, with 205 units recovered and 247 pending. Negotiated balances are targeted for ~50% of the remaining ~250 leases by October."
+      },
+      {
+        "title": "Used Vehicle Origination",
+        "body": "<b>85 used leases</b>, <span class='g'>30.8% above reforecast</span> (65) and the highest-MOIC channel (~1.3x underwriting), accelerating monetization of recovered inventory."
+      },
+      {
+        "title": "TTO",
+        "body": "Closed at <b>13.5 days</b> (<span class='g'>-3.7 days MoM</span>)."
+      },
+      {
+        "title": "Tech Tools",
+        "body": "July's Foundry tool-selection issue was resolved – abandonment fell to <span class='g'>31.7%</span> (vs. 47.2% in July) and non-candidate classification returned to expected levels (1,610 leads). Automated follow-up recovered <b>42%</b> of conversations that had gone silent and achieved initial contact with <b>34%</b> of previously unresponsive leads."
+      },
+      {
+        "title": "Uber Co-Branding Transition",
+        "body": "Segmented communication and transition strategy executed for the <b>343 drivers</b> affected by Uber's discontinuation of the MXN$1,200 benefit. Orderly to date, with no material client escalation."
+      }
+    ],
+    "lowlights": [
+      {
+        "title": "Lead Economics",
+        "body": "CPL rose <span class='r'>38.9% MoM</span> to <b>MXN$29.43</b> (vs. MXN$21.19 in July) as spend grew 35.2% while applications declined <span class='r'>-2.2%</span> to 13.4k."
+      },
+      {
+        "title": "Funnel Conversion",
+        "body": "House Visits fell to <b>386</b> (<span class='r'>-17.0% MoM</span>) and Delivery Authorizations to <b>257</b> (<span class='r'>-11.1% MoM</span>), with Profile Analysis broadly flat at 1,197."
+      },
+      {
+        "title": "Origination Below Plan",
+        "body": "<b>323 total leases</b> vs. the 340 reforecast, with new vehicle leases at 238 (<span class='r'>-13.4% vs. the 275 target</span>)."
+      },
+      {
+        "title": "DAE-LTO Program",
+        "body": "Transitioned <b>31 drivers</b>, <span class='r'>38% below</span> the 50 monthly target. The DAE-specific risk model is expected by end-September."
+      },
+      {
+        "title": "Uber First-Trip Commitment",
+        "body": "<b>129 first trips</b> in August, bringing Q3 to 293 (<span class='r'>38.1% of the Q3 target</span>) – creating increasing execution pressure against the contractual commitment. Latest reforecast expects to end <span class='r'>33.8% below</span> the 2,500-trips minimum threshold and result in ~<b>MXN$13.5m clawback</b> from Uber (as reference, each 10% of underperformance carries an MXN$5m penalty)."
+      },
+      {
+        "title": "Legacy Portfolio Buckets",
+        "body": "Current declined <span class='r'>-0.9 pp</span> to 42.1% and the 30–60 day bucket increased <span class='r'>+2.7 pp</span> to 13.7%, though 61–180 day balances improved."
+      },
+      {
+        "title": "Used Vehicle Inventory Remains Elevated",
+        "body": "Increased to <b>871 units</b> (19.1% of fleet, <span class='r'>+91 units MoM</span>), comprised of 400 EVs and 471 ICE-HEV. This was mainly driven by: (i) 233 effective repossessions; (ii) 85 used vehicle originations; (iii) 22 DAE leasing; and (iv) 35 vehicles classified as fixed assets. With 444 units still pending a disposition decision, accelerating used-vehicle originations and developing alternative disposal channels remain key priorities to reduce inventory levels."
+      },
+      {
+        "title": "Mambu Go-Live Delayed",
+        "body": "Implementation identified a structural product gap – the core does not natively support financial leasing, requiring in-house workarounds for VAT on principal, down payments, total losses and cancellations. <span class='r'>End-Q3 go-live is no longer achievable</span>; revised timing and vendor compensation are under negotiation."
+      }
+    ],
+    "pnl_revenue": {
+      "bud": "(MXN <b>-$24.1m</b>): Driven by: (i) lower interest income (<b>-$13.9m</b>) on account of a smaller Portfolio (<b>$1,202m</b> vs. <b>$1,826m</b>) and (ii) lower other operating revenue (<b>-$10.2m</b>) driven by lower originations (238 vs. 443) mainly due to: (a) Vehicle Rebates (<b>-$3.5m</b>); (b) Admin. Fees (<b>-$2.7m</b>); (c) Customer Discounts (<b>-$1.8m</b>); and (d) opening Fees (<b>-$1.8m</b>).",
+      "mom": "(MXN <b>-$4.4m</b>): Driven by: (i) lower interest income (<b>-$6.1m</b>) as July included one additional week of accrued interest. This was partially offset by higher other operating revenue on higher originations (238 vs. 174) mainly on higher rebates (<b>+$2.3m</b>), partially offset by Customer Discounts (<b>-$0.4m</b>)."
+    },
+    "pnl_nor": {
+      "bud": "(MXN <b>-$20.1m</b>): Driven by (i) lower revenues (<b>-$24.1m</b>), partially offset by (ii) lower interest expense (<b>+$2.6m</b>) - Budget assumed a (<b>$100.0m</b>) drawdown under the Promecap facility, and additional monthly debt drawdowns of (<b>$125.0m</b>) starting in July to resume leverage on the LTO. Neither has been drawn to date; and (iii) lower LLR &amp; RPSD (<b>+$1.4m</b>) associated with a smaller Portfolio.",
+      "mom": "(MXN <b>-$1.4m</b>): Driven by (i) lower revenues (<b>-$4.4m</b>), partially offset by (ii) lower LLR &amp; RPSD (<b>+$2.6m</b>), and (iii) lower interest expense (<b>+$0.3m</b>)."
+    },
+    "pnl_ni": {
+      "bud": "(MXN <b>-$24.5m</b>): Driven by: (i) a lower Net Operating Revenue (<b>-$20.1m</b>), (ii) higher OPEX (<b>-$6.3m</b>) mainly from Secondary Sales loss (<b>-$6.2m</b>) aligned with inventory exit strategy considering 35 auctioned units and a provision of ca. <b>$1m</b>; (iii) higher G&amp;A (<b>-$4.0m</b>) mainly linked to higher repossessed inventory (871 vs. 374) and additional expenses to support business operation (payroll and software expenses). This was partially offset by (i) lower Corp. &amp; CF SG&amp;A (<b>+$3.6m</b>), and (ii) lower taxes (<b>+$2.5m</b>).",
+      "mom": "(MXN <b>-$2.2m</b>): Driven by: (i) a lower Net Operating Revenue (<b>-$1.4m</b>), (ii) higher OPEX (<b>-$2.0m</b>) on account of (a) loss from secondary sales (<b>-$2.0m</b>), (iii) higher SG&amp;A (<b>-$0.3m</b>) on account of payment of additional software expenses. This was partially offset by (i) lower Corp. &amp; CF SG&amp;A (<b>+$1.2m</b>), (ii) lower taxes (<b>+$0.4m</b>), and (iii) lower D&amp;A (<b>+$0.1m</b>)."
+    }
   }
 }
