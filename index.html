@@ -769,7 +769,7 @@ footer.foot{margin-top:32px;padding-top:16px;border-top:1px solid var(--b);font-
 
 <footer class="foot">
   <div>VEMO · LTO (VEMO Impulso) · Strictly Private &amp; Confidential</div>
-  <div>build 2026-09-23 19:15</div>
+  <div>build 2026-09-24 11:23</div>
 </footer>
 
 <script>
@@ -1803,8 +1803,17 @@ const RATIOS = {
     {l:'Default Rate (Total)',           keys:['vrpm_default_rate'], unit:'%', type:'pct', agg:'eop', better:'down'},
   ],
   main_performance_flat: [
-    {l:'Monthly Effective Repossessions (Total)',   keys:['vrpm_repo_total'], unit:'#', type:'num', agg:'sum', fmt:'int', better:'down', fullWidth:true},
-    {l:'Repossessions (% of Active Fleet)',         keys:['vrpm_repo_pct'], unit:'%', type:'pct', agg:'avg', better:'down', fullWidth:true},
+    // projFormula:'repoFromFleet' (a pedido del usuario, Sep-2026): el Run-Rate GENERICO
+    // (delta promedio de los ultimos meses de Effective Repossessions, extrapolado) se veia muy
+    // pesimista -- Ago-26 tuvo un salto puntual (126->143->233) y ese delta se extrapolaba tal
+    // cual hacia adelante, dibujando una curva de recuperaciones disparandose. En su lugar: el
+    // Run-Rate de este par de metricas se calcula desde el Active Fleet proyectado (Active Fleet
+    // actual + Originations Run-Rate acumulado, mismo criterio que "cuantas unidades se suman
+    // al portafolio por mes") multiplicado por el % de Repossessions mas reciente (mantenido
+    // plano -- ya se asume estable, no se extrapola su propia tendencia). Ver rama
+    // opts.projFormula==='repoFromFleet' en makeLineChart().
+    {l:'Monthly Effective Repossessions (Total)',   keys:['vrpm_repo_total'], unit:'#', type:'num', agg:'sum', fmt:'int', better:'down', fullWidth:true, projFormula:'repoFromFleet'},
+    {l:'Repossessions (% of Active Fleet)',         keys:['vrpm_repo_pct'], unit:'%', type:'pct', agg:'avg', better:'down', fullWidth:true, projFormula:'repoFromFleet'},
     {l:'Used Vehicle Inventory (Total)',            keys:['vrpm_uvi_total'], unit:'#', type:'num', agg:'eop', fmt:'int', better:'down', fullWidth:true},
     {l:'Used Vehicle Inventory (% of Total Fleet)', keys:['vrpm_uvi_pct'], unit:'%', type:'pct', agg:'avg', better:'down', fullWidth:true},
     {l:'New Vehicle Inventory (Total)',   keys:['vrpm_nvi_total'],        unit:'#', type:'num', agg:'eop', fmt:'int', fullWidth:true},
@@ -2661,7 +2670,7 @@ function renderRatioCharts(containerId, chartDefs){
         });
       }
       if(ratioCharts[i]) ratioCharts[i].destroy();
-      ratioCharts[i] = makeLineChart(canvasId, cd.l, A, {budget: showBud?B:null, projection: showProj, yfmt, isPct: cd.type==='pct', marginData: mArr, marginLabel: cd.marginLabel, capToActual: cd.capToActual});
+      ratioCharts[i] = makeLineChart(canvasId, cd.l, A, {budget: showBud?B:null, projection: showProj, yfmt, isPct: cd.type==='pct', marginData: mArr, marginLabel: cd.marginLabel, capToActual: cd.capToActual, projFormula: cd.projFormula});
     } catch(e){ console.warn('chart render failed', cd.l, e); }
   }
   chartDefs.forEach((cd,i)=> buildChart(cd, i));
@@ -2816,9 +2825,11 @@ function _multiLineHistChart(canvasId, seriesDefs, cacheKey){
       // (dibujada por lineDataLabelsPlugin, centrada en el pixel del punto) sobresale mas alla
       // del area de ploteo cuando ese punto esta pegado al borde -- y como .chart-card tiene
       // overflow:hidden, ese texto quedaba recortado (ej. "336.9M"/"733.2M" cortados en el
-      // borde izquierdo de los charts de Gross Portfolio Technology/Platform). Reservar ~20px
-      // a cada lado evita el recorte sin afectar visualmente el resto del chart.
-      layout:{padding:{left:20, right:20, top:4, bottom:0}},
+      // borde izquierdo de los charts de Gross Portfolio Technology/Platform). 20px no fue
+      // suficiente (el usuario confirmo que seguia viendose recortado) -- subido a 34px, con
+      // margen extra porque los valores en MXN$ (ej. "1,201.5M") son mas anchos que un simple
+      // entero.
+      layout:{padding:{left:34, right:34, top:4, bottom:0}},
       interaction:{intersect:false, mode:'index'},
       plugins:{legend:{display:true, position:'bottom', labels:{font:{family:'Space Grotesk',size:10.5}, boxWidth:12, padding:8}},
         tooltip:{callbacks:{label:function(ctxi){ const v=ctxi.parsed.y; return ctxi.dataset.label+': '+(v==null?'—':fmtCompact(v,1)); }}}},
@@ -2888,7 +2899,7 @@ function renderOriginMixCharts(){
   // vivia como tabla en HIER_performance, sin su propio grafico -- mismo patron que Portfolio
   // Active Fleet -- Monthly Mix en renderPortfolioCharts()).
   root.insertAdjacentHTML('beforeend',
-    '<div class="vemo-section-title" style="margin-top:18px">Monthly Effective Repossessions — <b>Breakdown by Technology · Platform · City</b> <span style="font-weight:400;font-size:11px;color:var(--tx3)">(full history · the number in each segment is its value)</span></div>' +
+    '<div class="vemo-section-title" style="margin-top:18px">Monthly Effective Repossessions — <b>Breakdown by Technology · Platform · City</b></div>' +
     '<div class="charts-grid">' +
       '<div class="chart-card" style="grid-column:1 / -1"><div class="chart-hd"><span class="t">Repossessions — Technology (EV Light / EV Premium / ICE / HEV)</span></div><div class="chart-body" style="height:270px"><canvas id="repo-tech"></canvas></div></div>' +
       '<div class="chart-card"><div class="chart-hd"><span class="t">Repossessions — Platform</span></div><div class="chart-body" style="height:250px"><canvas id="repo-platform"></canvas></div></div>' +
@@ -2971,7 +2982,7 @@ function renderPortfolioCharts(){
 
   // 3) Portfolio Active Fleet -- mix mensual, BARRAS APILADAS (Technology / Platform / City)
   root.insertAdjacentHTML('beforeend',
-    '<div class="vemo-section-title" style="margin-top:18px">Portfolio Active Fleet — <b>Monthly Mix</b> <span style="font-weight:400;font-size:11px;color:var(--tx3)">(full history · the number in each segment is its value)</span></div>' +
+    '<div class="vemo-section-title" style="margin-top:18px">Portfolio Active Fleet — <b>Monthly Mix</b></div>' +
     '<div class="charts-grid">' +
       '<div class="chart-card" style="grid-column:1 / -1"><div class="chart-hd"><span class="t">Active Fleet — Technology (EV / ICE / HEV)</span></div><div class="chart-body" style="height:270px"><canvas id="af-tech"></canvas></div></div>' +
       '<div class="chart-card"><div class="chart-hd"><span class="t">Active Fleet — Platform (Uber / Didi)</span></div><div class="chart-body" style="height:250px"><canvas id="af-platform"></canvas></div></div>' +
@@ -3004,7 +3015,7 @@ function renderPortfolioCharts(){
 
   // 4) Days Past Due (ya existente)
   root.insertAdjacentHTML('beforeend',
-    '<div class="vemo-section-title" style="margin-top:18px">Days Past Due — <b>Composition (%) by Month</b> <span style="font-weight:400;font-size:11px;color:var(--tx3)">(full history · the number in each segment is its %)</span></div>' +
+    '<div class="vemo-section-title" style="margin-top:18px">Days Past Due — <b>Composition (%) by Month</b></div>' +
     '<div class="charts-grid">' +
       '<div class="chart-card" style="grid-column:1 / -1"><div class="chart-hd"><span class="t">Portfolio Days Past Due — % of total</span></div><div class="chart-body" style="height:260px"><canvas id="mix-pd-buckets"></canvas></div></div>' +
     '</div>');
@@ -3276,26 +3287,61 @@ function makeLineChart(canvasId,label,data,opts){
     // Ancla en el ultimo mes actual para que la linea punteada arranque exactamente donde
     // termina la linea solida de actuals (si no, Chart.js deja un hueco entre ambas lineas).
     if(LI < MAX_X) proj[LI]=main[LI];
-    // Run-Rate: en vez de promediar NIVELES (media movil de 3 meses -- podia "bajar" si el
-    // ultimo mes fue flojo, aun cuando el negocio siguio originando/operando ese mes), se
-    // promedia el DELTA mes a mes de los ultimos meses reales y se aplica ese incremento
-    // constante hacia adelante. Para metricas de nivel/conteo (no %) el delta se acota a >=0:
-    // el portafolio de LTO acumula unidades cada mes por definicion, asi que una proyeccion que
-    // baja sugeriria erroneamente que nadie trabajo ese mes. Para metricas de % (ej. Default
-    // Rate, Collection Rate) NO se acota -- ahi si puede bajar genuinamente.
-    const actualsOnly = main.slice(0, LI+1).filter(v=>v!=null);
-    const lastPts = actualsOnly.slice(-4); // hasta 4 puntos = 3 deltas
-    const deltas = [];
-    for(let i=1;i<lastPts.length;i++) deltas.push(lastPts[i]-lastPts[i-1]);
-    let avgDelta = deltas.length ? deltas.reduce((a,b)=>a+b,0)/deltas.length : 0;
-    if(!opts.isPct && avgDelta < 0) avgDelta = 0;
-    let cur = main[LI];
-    for(let i=LI+1;i<Math.min(LI+4,MAX_X);i++){
-      cur = cur + avgDelta;
-      proj[i]=cur;
+    let _projOk = true;
+    if(opts.projFormula === 'repoFromFleet'){
+      // Run-Rate a medida (a pedido del usuario, Sep-2026) SOLO para Monthly Effective
+      // Repossessions (Total) y Repossessions (% of Active Fleet): el Run-Rate GENERICO (delta
+      // promedio de los ultimos meses de la propia serie, extrapolado) se veia muy pesimista --
+      // un salto puntual en un mes (ej. Ago-26) se extrapolaba tal cual y la curva de
+      // recuperaciones parecia dispararse. En su lugar: se proyecta el Active Fleet hacia
+      // adelante (Active Fleet actual + Originations Run-Rate, el promedio de unidades
+      // originadas/mes en los ultimos 3 meses reales, acumulado mes a mes) y se multiplica por
+      // el % de Repossessions mas reciente, mantenido PLANO (no se extrapola su propia
+      // tendencia -- se asume el ritmo de recuperacion estable, solo crece el conteo porque
+      // crece la flota sobre la que aplica ese %).
+      const fleetArr = D['vrpm_active_fleet_total']||[];
+      const fleetLast = fleetArr[LI];
+      const repoPctArr = D['vrpm_repo_pct']||[];
+      const repoPctLast = repoPctArr[LI];
+      const newOrigArr = D['vrpm_orig_new_total']||[];
+      const usedOrigArr = D['orig_used_total']||[];
+      if(fleetLast==null || repoPctLast==null){
+        _projOk = false;
+      } else {
+        const combinedOrig = [];
+        for(let i=0;i<=LI;i++) combinedOrig[i] = (newOrigArr[i]||0) + (usedOrigArr[i]||0);
+        const recentOrig = combinedOrig.slice(-3).filter(v=>v!=null);
+        const origRunRate = recentOrig.length ? recentOrig.reduce((a,b)=>a+b,0)/recentOrig.length : 0;
+        let fleetProj = fleetLast;
+        for(let i=LI+1;i<Math.min(LI+4,MAX_X);i++){
+          fleetProj = fleetProj + origRunRate;
+          proj[i] = opts.isPct ? repoPctLast : (repoPctLast * fleetProj);
+        }
+      }
+    } else {
+      // Run-Rate generico: en vez de promediar NIVELES (media movil de 3 meses -- podia "bajar"
+      // si el ultimo mes fue flojo, aun cuando el negocio siguio originando/operando ese mes),
+      // se promedia el DELTA mes a mes de los ultimos meses reales y se aplica ese incremento
+      // constante hacia adelante. Para metricas de nivel/conteo (no %) el delta se acota a >=0:
+      // el portafolio de LTO acumula unidades cada mes por definicion, asi que una proyeccion
+      // que baja sugeriria erroneamente que nadie trabajo ese mes. Para metricas de % (ej.
+      // Default Rate, Collection Rate) NO se acota -- ahi si puede bajar genuinamente.
+      const actualsOnly = main.slice(0, LI+1).filter(v=>v!=null);
+      const lastPts = actualsOnly.slice(-4); // hasta 4 puntos = 3 deltas
+      const deltas = [];
+      for(let i=1;i<lastPts.length;i++) deltas.push(lastPts[i]-lastPts[i-1]);
+      let avgDelta = deltas.length ? deltas.reduce((a,b)=>a+b,0)/deltas.length : 0;
+      if(!opts.isPct && avgDelta < 0) avgDelta = 0;
+      let cur = main[LI];
+      for(let i=LI+1;i<Math.min(LI+4,MAX_X);i++){
+        cur = cur + avgDelta;
+        proj[i]=cur;
+      }
     }
-    projSeries = proj;
-    datasets.push({label:'Run-Rate',data:proj,borderColor:'#7BDADA',backgroundColor:'rgba(123,218,218,0.15)',borderDash:[3,3],fill:false,tension:0.32,borderWidth:1.5,pointRadius:2,pointBackgroundColor:'#7BDADA',__noLabels:true});
+    if(_projOk){
+      projSeries = proj;
+      datasets.push({label:'Run-Rate',data:proj,borderColor:'#7BDADA',backgroundColor:'rgba(123,218,218,0.15)',borderDash:[3,3],fill:false,tension:0.32,borderWidth:1.5,pointRadius:2,pointBackgroundColor:'#7BDADA',__noLabels:true});
+    }
   }
   // IMPORTANTE: el eje Y debe considerar TAMBIEN Budget y Projection, no solo Actuals — si no,
   // cuando el Budget esta muy lejos de los Actuals (ej. muy por arriba), la linea de Budget queda
