@@ -769,7 +769,7 @@ footer.foot{margin-top:32px;padding-top:16px;border-top:1px solid var(--b);font-
 
 <footer class="foot">
   <div>VEMO · LTO (VEMO Impulso) · Strictly Private &amp; Confidential</div>
-  <div>build 2026-09-24 11:23</div>
+  <div>build 2026-09-24 12:45</div>
 </footer>
 
 <script>
@@ -1803,17 +1803,14 @@ const RATIOS = {
     {l:'Default Rate (Total)',           keys:['vrpm_default_rate'], unit:'%', type:'pct', agg:'eop', better:'down'},
   ],
   main_performance_flat: [
-    // projFormula:'repoFromFleet' (a pedido del usuario, Sep-2026): el Run-Rate GENERICO
-    // (delta promedio de los ultimos meses de Effective Repossessions, extrapolado) se veia muy
-    // pesimista -- Ago-26 tuvo un salto puntual (126->143->233) y ese delta se extrapolaba tal
-    // cual hacia adelante, dibujando una curva de recuperaciones disparandose. En su lugar: el
-    // Run-Rate de este par de metricas se calcula desde el Active Fleet proyectado (Active Fleet
-    // actual + Originations Run-Rate acumulado, mismo criterio que "cuantas unidades se suman
-    // al portafolio por mes") multiplicado por el % de Repossessions mas reciente (mantenido
-    // plano -- ya se asume estable, no se extrapola su propia tendencia). Ver rama
-    // opts.projFormula==='repoFromFleet' en makeLineChart().
-    {l:'Monthly Effective Repossessions (Total)',   keys:['vrpm_repo_total'], unit:'#', type:'num', agg:'sum', fmt:'int', better:'down', fullWidth:true, projFormula:'repoFromFleet'},
-    {l:'Repossessions (% of Active Fleet)',         keys:['vrpm_repo_pct'], unit:'%', type:'pct', agg:'avg', better:'down', fullWidth:true, projFormula:'repoFromFleet'},
+    // noRunRate:true (a pedido del usuario, Sep-2026): primero se probo un Run-Rate a medida
+    // (projFormula:'repoFromFleet', ver makeLineChart) para que la proyeccion de Effective
+    // Repossessions no se viera tan pesimista -- pero el usuario prefirio directamente QUITAR el
+    // Run-Rate de estas dos metricas (mejor no proyectar nada que proyectar y que se vea mal).
+    // Se deja projFormula puesto por si se reactiva el boton a futuro, pero con noRunRate:true
+    // el boton "Run-Rate" ni siquiera se dibuja (ver renderRatioCharts).
+    {l:'Monthly Effective Repossessions (Total)',   keys:['vrpm_repo_total'], unit:'#', type:'num', agg:'sum', fmt:'int', better:'down', fullWidth:true, projFormula:'repoFromFleet', noRunRate:true},
+    {l:'Repossessions (% of Active Fleet)',         keys:['vrpm_repo_pct'], unit:'%', type:'pct', agg:'avg', better:'down', fullWidth:true, projFormula:'repoFromFleet', noRunRate:true},
     {l:'Used Vehicle Inventory (Total)',            keys:['vrpm_uvi_total'], unit:'#', type:'num', agg:'eop', fmt:'int', better:'down', fullWidth:true},
     {l:'Used Vehicle Inventory (% of Total Fleet)', keys:['vrpm_uvi_pct'], unit:'%', type:'pct', agg:'avg', better:'down', fullWidth:true},
     {l:'New Vehicle Inventory (Total)',   keys:['vrpm_nvi_total'],        unit:'#', type:'num', agg:'eop', fmt:'int', fullWidth:true},
@@ -2544,7 +2541,10 @@ function renderRatioCharts(containerId, chartDefs){
       '<div class="chart-hd"><span class="t">'+cd.l+'</span><span class="stats">'+stat+'</span>'+
       '<div class="chart-toggles"><div class="tgl-group">'+
         (hasBud ? '<button type="button" class="tgl-btn active" data-toggle="bud" data-card="'+containerId+'-c'+i+'">Budget</button>' : '')+
-        '<button type="button" class="tgl-btn" data-toggle="proj" data-card="'+containerId+'-c'+i+'">Run-Rate</button>'+
+        // noRunRate:true (a pedido del usuario, Sep-2026): algunas metricas (ej. Effective
+        // Repossessions) no deben ofrecer Run-Rate en absoluto -- ninguna formula de proyeccion
+        // se veia bien para esa metrica, asi que directamente no se dibuja el boton.
+        (cd.noRunRate ? '' : '<button type="button" class="tgl-btn" data-toggle="proj" data-card="'+containerId+'-c'+i+'">Run-Rate</button>')+
       '</div></div></div>'+
       // Nota explicativa del calculo, visible directo en el chart (no solo en hover como en
       // las tarjetas RATIOS) -- a pedido del usuario para LLR Adjustment.
@@ -2653,7 +2653,12 @@ function renderRatioCharts(containerId, chartDefs){
       const A = arrCand(cd.keys || [cd.k]);
       if(!A.length) return;
       const B = barrCand(cd.keys || [cd.k]);
-      const yfmt = cd.type==='pct' ? (v=>(v*100).toFixed(0)+'%') : (cd.fmt==='int'?(v=>v.toLocaleString()):undefined);
+      // Math.round antes de toLocaleString: sin esto, un valor fraccionario (ej. el Run-Rate
+      // nuevo de Effective Repossessions, o cualquier Budget/Run-Rate con delta promediado) se
+      // mostraba con hasta 3 decimales en el tooltip (toLocaleString() redondea a 3 decimales
+      // por default, ej. "288.317", "944.667") -- estas metricas son conteos de unidades (#),
+      // no tiene sentido mostrar fracciones de vehiculo.
+      const yfmt = cd.type==='pct' ? (v=>(v*100).toFixed(0)+'%') : (cd.fmt==='int'?(v=>Math.round(v).toLocaleString()):undefined);
       const canvasId = containerId+'-c'+i;
       const card = document.getElementById(canvasId)?.closest('.chart-card');
       const showBud = card?.querySelector('[data-toggle="bud"]')?.classList.contains('active') ?? false;
@@ -3039,7 +3044,7 @@ const RATIO_CHARTS = {
     {keys:['vrpm_orig_new_total'], l:'Origination of New Vehicles (#)', agg:'sum', fmt:'int'},
     {keys:['orig_used_total'], l:'Origination of Used Vehicles (#)', agg:'sum', fmt:'int'},
     {keys:['vrpm_asset_yield'], l:'Portfolio Asset Yield (YTD)', type:'pct', agg:'avg'},
-    {keys:['vrpm_repo_total'], l:'Effective Repossessions', agg:'sum', fmt:'int'},
+    {keys:['vrpm_repo_total'], l:'Effective Repossessions', agg:'sum', fmt:'int', noRunRate:true},
     // Repossession Rate (L)egacy / (N)ew Product (Sep 2026, a pedido del usuario) -- mismas 2
     // lineas que ya se ven en el board deck junto a Repossession Rate (Total). Fuente: archivo
     // VRP KPIs, seccion "2) Repossession Rate" (ver extraccion de vrpm_repo_pct_legacy/_new).
